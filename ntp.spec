@@ -1,7 +1,7 @@
 Summary: The NTP daemon and utilities
 Name: ntp
 Version: 4.2.4p8
-Release: 2%{?dist}
+Release: 2%{?dist}.goose.1
 # primary license (COPYRIGHT) : MIT
 # ElectricFence/ (not used) : GPLv2
 # kernel/sys/ppsclock.h (not used) : BSD with advertising
@@ -154,10 +154,9 @@ This package contains NTP documentation in HTML format.
 %define ntpdocdir %{_datadir}/doc/%{name}-%{version}
 
 # pool.ntp.org vendor zone which will be used in ntp.conf
-%if 0%{!?vendorzone:1}
+%define vendorzone rhel.
 %{?fedora: %define vendorzone fedora.}
 %{?rhel: %define vendorzone rhel.}
-%endif
 
 %prep 
 %setup -q -a 5
@@ -367,6 +366,10 @@ fi
 %{ntpdocdir}/html
 
 %changelog
+* Thu Mar 29 2012 Clint Savage <herlo@gooseproject.org> 4.2.4p8-2.goose.1
+- %define vendorzone 'rhel.' by default 
+- may change to 'goose.' when we get a vendorzone configured
+
 * Thu May 13 2010 Miroslav Lichvar <mlichvar@redhat.com> 4.2.4p8-2
 - don't verify ntp.conf (#591924)
 - clarify ntpd -q description (#591837)
